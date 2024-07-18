@@ -10,11 +10,14 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+
         stage('SonarQube Analysis') {
             def mvn = tool 'Default Maven';
             withSonarQubeEnv() {
                 sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Devops-Automation -Dsonar.projectName='Devops-Automation'"
             }
+        }
+
         stage('Build docker image'){
             steps{
                 script{
@@ -27,10 +30,10 @@ pipeline {
                 script{
                    sh 'docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}'
                    sh 'docker push naikonkar0205/devops-integration'
-                    }
                 }
             }
         }
+
         stage('Deploy to k8s'){
             steps{
                 script{
