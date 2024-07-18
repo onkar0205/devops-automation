@@ -15,15 +15,13 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        node {
-            stage('SCM') {
-                checkout scm
-            }
-            stage('SonarQube Analysis') {
-                def mvn = tool 'Default Maven';
-                withSonarQubeEnv() {
-                    sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Devops-Automation -Dsonar.projectName='Devops-Automation'"
-                }
+        stage('SCM') {
+            checkout scm
+        }
+        stage('SonarQube Analysis') {
+            def mvn = tool 'Default Maven';
+            withSonarQubeEnv() {
+                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Devops-Automation -Dsonar.projectName='Devops-Automation'"
             }
         }
         stage('Build Docker Image') {
