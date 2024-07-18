@@ -11,12 +11,10 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            def mvn = tool 'Default Maven';
-            withSonarQubeEnv() {
-                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Devops-Automation -Dsonar.projectName='Devops-Automation'"
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     def mvn = tool 'Default Maven';
+        //     sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Devops-Automation -Dsonar.projectName='Devops-Automation'"
+        // }
 
         stage('Build docker image'){
             steps{
@@ -25,6 +23,7 @@ pipeline {
                 }
             }
         }
+
         stage('Push image to Hub'){
             steps{
                 script{
