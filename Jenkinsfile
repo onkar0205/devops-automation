@@ -17,7 +17,7 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                sh "mvn sonar:sonar -Dsonar.projectKey=Devops-Automation -Dsonar.projectName='Devops-Automation'"
+                sd "mvn clean verify sonar:sonar -Dsonar.token=Devops-Automation"
             }
         }
         stage('Build Docker Image') {
