@@ -59,15 +59,6 @@
 		</plugins>
 		<finalName>devops-integration</finalName>
 	</build>
-	<build>
-	<pluginManagement>
-		<plugins>
-		<plugin>
-			<groupId>org.sonarsource.scanner.maven</groupId>
-			<artifactId>sonar-maven-plugin</artifactId>
-		</plugin>
-		</plugins>
-	</pluginManagement>
-	</build>
+	
 
 </project>
