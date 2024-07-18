@@ -15,13 +15,12 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        // stage('SonarQube Analysis') {
-        //     steps {
-        //         withSonarQubeEnv('your-sonar-server-url') {
-        //             sh 'mvn sonar:sonar'
-        //         }
-        //     }
-        // }
+        stage('SonarQube Analysis') {
+            def mvn = tool 'Default Maven';
+            withSonarQubeEnv() {
+                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Devops-Automation -Dsonar.projectName='Devops-Automation'"
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
@@ -34,13 +33,6 @@ pipeline {
                 script {
                     sh 'docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}'
                     sh 'docker push naikonkar0205/devops-integration'
-                }
-            }
-        }
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    kubernetesDeploy (configs: 'deploymentservice.yaml', kubeconfigId: 'k8sconfigpwd')
                 }
             }
         }
