@@ -17,9 +17,7 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv() {
-                    sh "mvn sonar:sonar -Dsonar.projectKey=Devops-Automation -Dsonar.projectName='Devops-Automation'"
-                }
+                sh "mvn sonar:sonar -Dsonar.projectKey=Devops-Automation -Dsonar.projectName='Devops-Automation'"
             }
         }
         stage('Build Docker Image') {
