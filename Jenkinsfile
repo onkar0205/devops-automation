@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
         maven 'Maven3'
-        // sonarScanner 'SonarScanner for Maven'
+        sonarScanner 'Sonar-Server'
     }
     stages {
         stage('Checkout') {
