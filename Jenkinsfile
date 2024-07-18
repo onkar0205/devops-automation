@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
         maven 'Maven3'
-        // sonarScanner 'SonarScanner for Maven' // Ensure this plugin is installed
+        sonarScanner 'SonarScanner for Maven'
     }
     stages {
         stage('Checkout') {
