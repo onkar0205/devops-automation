@@ -1,5 +1,3 @@
-
-
 pipeline{
     agent any
     tools {
@@ -38,7 +36,7 @@ pipeline{
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    sh 'docker run -d --name devops-integration-container -p 8080:8080 naikonkar0205/devops-integration'
+                    sh 'docker run -d --name devops-integration-container -p 7081:8080 naikonkar0205/devops-integration'
                 }
             }
         }
