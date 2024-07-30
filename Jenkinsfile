@@ -35,23 +35,23 @@ pipeline {
                 }
             }
         }
-        // stage('Deploy Docker Container') {
-        //     steps {
-        //         script {
-        //             sh """
-        //             if [ \$(docker ps -q -f name=devops-integration-container) ]; then
-        //                 docker stop devops-integration-container
-        //                 docker rm devops-integration-container
-        //             fi
-        //             """
-        //             sh 'docker run -d --name devops-integration-container -p 7081:8080 naikonkar0205/devops-integration'
-        //         }
-        //     }
-        // }
+        stage('Deploy Docker Container') {
+            steps {
+                script {
+                    sh """
+                    if [ \$(docker ps -q -f name=devops-integration-container) ]; then
+                        docker stop devops-integration-container
+                        docker rm devops-integration-container
+                    fi
+                    """
+                    sh 'docker run -d --name devops-integration-container -p 7081:8080 naikonkar0205/devops-integration'
+                }
+            }
+        }
         stage('Deploy To Kubernates') {
             steps {
                 script {
-                    
+                    kubernetesDeploy configs: 'deploymentservice.yaml', kubeConfig: [path: ''], kubeconfigId: 'k8configpwd', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
                 }
             }
         }
