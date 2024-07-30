@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven3'
+        maven 'Maven'
     }
     stages {
         stage('Checkout') {
@@ -35,16 +35,23 @@ pipeline {
                 }
             }
         }
-        stage('Deploy Docker Container') {
+        // stage('Deploy Docker Container') {
+        //     steps {
+        //         script {
+        //             sh """
+        //             if [ \$(docker ps -q -f name=devops-integration-container) ]; then
+        //                 docker stop devops-integration-container
+        //                 docker rm devops-integration-container
+        //             fi
+        //             """
+        //             sh 'docker run -d --name devops-integration-container -p 7081:8080 naikonkar0205/devops-integration'
+        //         }
+        //     }
+        // }
+        stage('Deploy To Kubernates') {
             steps {
                 script {
-                    sh """
-                    if [ \$(docker ps -q -f name=devops-integration-container) ]; then
-                        docker stop devops-integration-container
-                        docker rm devops-integration-container
-                    fi
-                    """
-                    sh 'docker run -d --name devops-integration-container -p 7081:8080 naikonkar0205/devops-integration'
+                    
                 }
             }
         }
